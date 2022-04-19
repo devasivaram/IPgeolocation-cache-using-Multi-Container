@@ -1,0 +1,84 @@
+version: "3"
+
+services:
+
+    redis:
+      image: redis:latest
+      container_name: ipgeolocation-caching-service
+      networks:
+        - ipgeolocation-network
+      ports:
+        - "6379:6379"
+
+    api-service:
+      image: devanandts/apiimage:custom
+      container_name: api-service
+      networks:
+        - ipgeolocation-network
+      env_file: .env
+      environment:
+        REDIS_HOST: ipgeolocation-caching-service
+        REDIS_PORT: 6379
+        APP_PORT: "8080"
+        API_KEY: $api_key
+      ports:
+        - "8080:8080"
+
+    frontend1:
+      image: devanandts/frontimagenew:custom
+      container_name: front-service1
+      networks:
+        - ipgeolocation-network
+      environment:
+        API_SERVER: api-service
+        API_SERVER_PORT: 8080
+        API_PATH: /api/v1/
+        APP_PORT: 8080
+      ports:
+        - "8081:8080"
+
+    frontend2:
+      image: devanandts/frontimagenew:custom
+      container_name: front-service2
+      networks:
+        - ipgeolocation-network
+      env_file: .env
+      environment:
+        API_SERVER: api-service
+        API_SERVER_PORT: 8080
+        API_PATH: /api/v1/
+        APP_PORT: 8080
+      ports:
+        - "8082:8080"
+
+    frontend3:
+      image: devanandts/frontimagenew:custom
+      container_name: front-service3
+      networks:
+        - ipgeolocation-network
+      env_file: .env
+      environment:
+        API_SERVER: api-service
+        API_SERVER_PORT: 8080
+        API_PATH: /api/v1/
+        APP_PORT: 8080
+      ports:
+        - "8083:8080"
+
+    nginx:
+      image: nginx:1.15.12-alpine
+      container_name: nginx
+      networks:
+        - ipgeolocation-network
+      volumes:
+        - ./nginx-conf/:/etc/nginx/conf.d
+        - ./ssl:/etc/nginx/certs
+      ports:
+        - "80:80"
+        - "443:443"
+
+volumes:
+  cache:
+
+networks:
+  ipgeolocation-network:
