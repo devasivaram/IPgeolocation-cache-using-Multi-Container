@@ -203,7 +203,7 @@ Once those are up and running, we can check the IP info by using the URL http://
 You can see that when I first request an IP, the cached status is false, but when I request the same IP again, the cached status changes to True, indicating that when we make requests for the same IP, the result is received from the cache service rather than an API request, reducing API queries. Because we are utilising a multi-container system, you can also observe that the results are fetched from different containers by looking at the container hostname or IP.
 
 ## Conclusion
-This is how we create ipgelocation-cache service using docker-compose tool with multi-container. Please contact me when you encounter any difficulty error while using this terrform code. Thank you and have a great day!
+This is how we create ipgeolocation-cache service using docker-compose tool with multi-container. Please contact me when you encounter any difficulty error while using this terrform code. Thank you and have a great day!
 
 
 ### ⚙️ Connect with Me
