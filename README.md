@@ -21,7 +21,7 @@ If there are more than one connection to an API at the same time, it can't handl
 
 
 ## Pre-requests
-- A running Amazon Linux 2 instance with docker installed
+- A running 2 Amazon Linux instance with docker installed
 - A domain name which points to the EC2 instance
 - Get API key from: [API_KEY](https://app.ipgeolocation.io/auth/login)
 - SSL for the domain
